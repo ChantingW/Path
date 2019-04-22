@@ -159,6 +159,63 @@ Graph* InsertEdge (Graph* PtG, Edge* PtE)
 
 
     }
+
+
+    if(ExistSnode(PtG, PtE->idV2))
+    {
+        while(PtG->snode->nodeId != PtE->idV2)
+        {
+            PtG->snode=PtG->snode->nextSnode;
+        }
+        if(ExistAnode(PtG->snode, PtE->idV1))
+        {
+            while(PtG->snode->nodeId != PtE->idV2)
+            {
+                PtG->snode=PtG->snode->nextSnode;
+            }
+
+            while( PtG->snode->anode->nodeId != PtE->idV1)
+            {
+                PtG->snode->anode=PtG->snode->anode->nextAnode;
+            }
+            Anode* PtNewAnode=(Anode*)malloc(sizeof(Anode));
+            PtNewAnode->nodeId=PtE->idV1;
+            PtNewAnode->length=PtE->length;
+            PtNewAnode->nextAnode=PtG->snode->anode->nextAnode;
+            PtG->snode->anode->nextAnode=PtNewAnode;
+        }
+        else
+        {
+            while(PtG->snode->anode->nextAnode != NULL )
+            {
+                PtG->snode->anode=PtG->snode->anode->nextAnode;
+            }
+            Anode* PtNewAnode=(Anode*)malloc(sizeof(Anode));
+            PtG->snode->anode->nextAnode=PtNewAnode;
+
+        }
+
+    }
+    else
+    {
+        while(PtG->snode->nextSnode != NULL)
+        {
+            PtG->snode=PtG->snode->nextSnode;
+        }
+
+        Snode* PtNewSnode=(Snode*)malloc(sizeof(Snode));
+        Anode* PtNewAnode=(Anode*)malloc(sizeof(Anode));
+        PtNewSnode->nextSnode=NULL;
+        PtNewSnode->nodeId=PtE->idV2;
+        PtNewSnode->anode=createheadA();
+        PtNewAnode->length=PtE->length;
+        PtNewAnode->nodeId=PtE->idV1;
+        PtNewAnode->nextAnode=NULL;
+        PtG->snode->nextSnode=PtNewSnode;
+        PtG->snode->nextSnode->anode->nextAnode=PtNewAnode;
+
+
+    }
     return PtG;
 }
 
