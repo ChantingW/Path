@@ -21,11 +21,16 @@ int main()
     int endid;
     printf("Please input the StartID and EndID:");
     scanf("%i %i",&startid,&endid);
+    if (idexist(Info, startid, endid)==0)
+    {
+        printf("Wrong node ID(Does not exist)");
+        return 0;
+    }
     //printf("1");
     getpath( PtG, startid, endid, storepath);
     if(storepath[0] == 0)
     {
-        printf("There are no path between this two nodes");
+        printf("There are no path between theseb two nodes");
         return 0;
     }
     //printf("2");

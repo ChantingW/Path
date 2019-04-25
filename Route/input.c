@@ -87,3 +87,30 @@ Node* Readnode (FILE* PtF)
     Info=startInfo;
     return Info;
 }
+
+int idexist(Node* Info, int startid, int endid)
+{
+    Node* startInfo=Info;
+    int a=0;
+    int b=0;
+    while(Info != NULL)
+    {
+        if(Info->id ==startid)
+            a=1;
+        Info=Info->nextNode;
+    }
+    Info=startInfo;
+
+    while(Info != NULL)
+    {
+        if(Info->id ==endid)
+            b=1;
+        Info=Info->nextNode;
+    }
+    Info=startInfo;
+
+    if(a+b==2)
+        return 1;
+    else
+        return 0;
+}

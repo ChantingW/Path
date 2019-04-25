@@ -1,8 +1,8 @@
 #include <graph.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <input.h>
-#include <find.h>
+//#include <input.h>
+//#include <find.h>
 
 
 int* getpath (Graph* PtG, int start, int endid, int storepath[])
