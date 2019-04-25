@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1556082719 source:c:\users\chanting\desktop\route\find.c
+	<graph.h>
+	<stdio.h>
+	<stdlib.h>
+
+1556095738 source:c:\users\chanting\desktop\route\input.c
+	<graph.h>
+	<stdio.h>
+	<stdlib.h>
+
+1556122963 source:c:\users\chanting\desktop\route\main.c
+	<graph.h>
+	<stdio.h>
+	<stdlib.h>
+	<input.h>
+	<find.h>
+	<output.h>
+
+1556122963 source:c:\users\chanting\desktop\route\output.c
+	<graph.h>
+	<stdio.h>
+	<stdlib.h>
+	<input.h>
+	<find.h>
+
+1556075719 source:c:\users\chanting\desktop\route\graph.c
+	<graph.h>
+	<stdio.h>
+	<stdlib.h>
+
+1556086504 c:\users\chanting\desktop\route\graph.h
+
+1556086607 c:\users\chanting\desktop\route\input.h
+
+1556076191 c:\users\chanting\desktop\route\find.h
+
+1556109280 c:\users\chanting\desktop\route\output.h
+
