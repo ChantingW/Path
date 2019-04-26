@@ -10,9 +10,9 @@ struct Snode{//start node
     int nodeId;
     Anode* anode;
     struct Snode* nextSnode;
-    int visit;
-    int lastId;
-    float dist;
+    int visit;//if it has been visited
+    int lastId;//the id of the last node
+    float dist;//the distance from the strat point
 };
 typedef struct Snode Snode;
 

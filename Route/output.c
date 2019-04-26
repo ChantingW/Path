@@ -1,16 +1,14 @@
 #include <graph.h>
 #include <stdio.h>
 #include <stdlib.h>
-//#include <input.h>
-//#include <find.h>
 
 
-int* getpath (Graph* PtG, int start, int endid, int storepath[])
+int* getpath (Graph* PtG, int start, int endid, int storepath[])//to get the trace of the shortest path
 {
     dijkstra ( PtG, start);
     int i=2;
 
-    //printf("j");
+
     Snode* startSnode=PtG->snode;
     while(PtG->snode->nodeId != endid )
     {
@@ -20,15 +18,15 @@ int* getpath (Graph* PtG, int start, int endid, int storepath[])
             return storepath;
         }
         PtG->snode=PtG->snode->nextSnode;
-        //printf("1");
-    }
-    //printf("k");
+
+    }//from end
+
 
     storepath[1]=PtG->snode->nodeId;
     storepath[2]=PtG->snode->lastId;
 
 
-    while(1)
+    while(1)//again and again go back to the start point
     {
         PtG->snode=startSnode;
         while(PtG->snode->nodeId != storepath[i])
@@ -41,15 +39,14 @@ int* getpath (Graph* PtG, int start, int endid, int storepath[])
             storepath[i+1]=PtG->snode->lastId;
             storepath[0]=1;
             break;
-        }
+        }//back to the start
 
         if(PtG->snode->lastId==-1)
         {
-            //printf("k");
             storepath[i+1]=PtG->snode->lastId;
             storepath[0]=0;
             break;
-        }
+        }//cannot get the start
         storepath[i+1]=PtG->snode->lastId;
         ++i;
     }
@@ -58,7 +55,7 @@ int* getpath (Graph* PtG, int start, int endid, int storepath[])
     return storepath;
 }
 
-Node* getPathNode(Node* Info, int storepath[])
+Node* getPathNode(Node* Info, int storepath[])//get the geographical information of points in the route
 {
     Node* pathInfo=CreateNode();
     Node* startpathInfo=pathInfo;
@@ -74,7 +71,7 @@ Node* getPathNode(Node* Info, int storepath[])
             while(Info->id!=storepath[i])
             {
                 Info=Info->nextNode;
-            }
+            }//to seek
 
             pathInfo->id=Info->id;
             pathInfo->lat=Info->lat;
@@ -95,19 +92,18 @@ Node* getPathNode(Node* Info, int storepath[])
     return pathInfo;
 }
 
-void writenode(Node* Info)
+void writenode(Node* Info)//write all nodes
 {
     FILE *fp = fopen("nodes.out","w");
     while(Info != NULL)
     {
-        //printf(" %f %f\n",pathInfo->lon,pathInfo->lat);
         fprintf(fp, " %f %f\n",Info->lon,Info->lat);
         Info=Info->nextNode;
     }
     return;
 }
 
-void writelink(Node* Info, Graph* PtG)
+void writelink(Node* Info, Graph* PtG)//write all links
 {
     int tmpsid;
     int tmpaid;
@@ -147,23 +143,20 @@ void writelink(Node* Info, Graph* PtG)
         }
         PtG->snode->anode=startAnode;
         PtG->snode=PtG->snode->nextSnode;
-        //printf(" %f %f\n",pathInfo->lon,pathInfo->lat);
+
     }
     PtG->snode=startSnode;
     return;
 }
 
-/*void writelink()
-{
 
-}*/
 
-void writepath(Node* pathInfo)
+void writepath(Node* pathInfo)//write the path
 {
     FILE *fp = fopen("route.out","w");
     while(pathInfo->id != 0)
     {
-        //printf(" %f %f\n",pathInfo->lon,pathInfo->lat);
+
         fprintf(fp, " %f %f\n",pathInfo->lon,pathInfo->lat);
         pathInfo=pathInfo->nextNode;
     }

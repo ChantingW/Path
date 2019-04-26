@@ -15,70 +15,33 @@ int main()
     PtG=Read(PtG, PtF);
     Node* Info=Readnode (PtF);
     Node* SelectedInfo;
-    //dijkstra(PtG, -1887865267);
-    int storepath[9999]={0};
+
+    int storepath[9999]={0};//to store the sequence of id of the route
     int startid;
     int endid;
     printf("Please input the StartID and EndID:");
-    scanf("%i %i",&startid,&endid);
+    scanf("%i %i",&startid,&endid);//input the ids
     if (idexist(Info, startid, endid)==0)
     {
         printf("Wrong node ID(Does not exist)");
         return 0;
     }
-    //printf("1");
-    getpath( PtG, startid, endid, storepath);
+
+    getpath( PtG, startid, endid, storepath);//get the sequences
     if(storepath[0] == 0)
     {
-        printf("There are no path between theseb two nodes");
+        printf("There are no path between these two nodes");
         return 0;
-    }
-    //printf("2");
-    SelectedInfo=getPathNode(Info, storepath);
-    //printf("3");
+    }//can find the path
 
-   // printf("%i\n",SelectedInfo->id);
-    //printf("%i\n",Info->id);
+    SelectedInfo=getPathNode(Info, storepath);//get the lat and lon of the node in the path
+
     writenode(Info);
-    //printf("3");
+
     writepath( SelectedInfo);
-    //printf("4");
+
     writelink(Info, PtG);
 
-   /* while(PtG->snode->nextSnode != NULL)
-    {
-        while(PtG->snode->anode->nextAnode!=NULL)
-        {
-            printf("%i %i \n",PtG->snode->nodeId, PtG->snode->anode->nodeId);
-            PtG->snode->anode=PtG->snode->anode->nextAnode;
-
-        }
-        printf("%i %i\n",PtG->snode->nodeId, PtG->snode->anode->nodeId);
-        printf("\n");
-        PtG->snode=PtG->snode->nextSnode;
-    }
-    while(PtG->snode->anode->nextAnode!=NULL)
-    {
-        printf("%i %i\n",PtG->snode->nodeId, PtG->snode->anode->nodeId);
-        PtG->snode->anode=PtG->snode->anode->nextAnode;
-
-    }
-    printf("%i %i\n",PtG->snode->nodeId, PtG->snode->anode->nodeId);
-    printf("\n");*/
-
-   /* while(PtG->snode->nextSnode != NULL)
-    {
-        printf("%f %i\n", PtG->snode->dist, PtG->snode->visit);
-        PtG->snode=PtG->snode->nextSnode;
-    }
-    PtG->snode=PtG->snode->nextSnode;*/
-
-   // printf("1");
-    //PtG->snode=PtG->snode->nextSnode->nextSnode;
-   // printf("b");
-    //printf("%i",PtG->snode->nodeId);
-    //PtG->snode->anode=PtG->snode->anode->nextAnode;
-    //printf("%i %i",PtG->snode->nodeId,PtG->snode->anode->nodeId);
     fclose(PtF);
     return 0;
 }

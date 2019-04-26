@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-Anode* createheadA()
+Anode* createheadA()//create a head for the list of Anode
 {
     Anode* headA=(Anode*)malloc(sizeof(Anode));
     headA->length=-1;
@@ -12,7 +12,7 @@ Anode* createheadA()
     return headA;
 }
 
-Snode* createheadS()
+Snode* createheadS()//create a head for the list of Snode
 {
     Snode* headS=(Snode*)malloc(sizeof(Snode));
     headS->anode=createheadA();
@@ -26,9 +26,9 @@ Snode* createheadS()
 
 
 int ExistSnode (Graph* PtG, int id)//id is the first
-{
+{//to judge if the Snode with the input id exists
     Snode* tmp=PtG->snode;
-    while(     PtG->snode->nextSnode != NULL  )
+    while(     PtG->snode->nextSnode != NULL  )//to go through the list
     {
         if (PtG->snode->nodeId == id)
         {
@@ -48,9 +48,9 @@ int ExistSnode (Graph* PtG, int id)//id is the first
 }
 
 int ExistAnode (Snode* snode, int id)//id is the second
-{
+{//to judge if the Anode with the input id exists
     Anode* tmp=snode->anode;
-    while(   snode->anode->nextAnode != NULL  )
+    while(   snode->anode->nextAnode != NULL  )//to go through the list
     {
         if (snode->anode->nodeId== id)
         {
@@ -70,7 +70,7 @@ int ExistAnode (Snode* snode, int id)//id is the second
 }
 
 
-Graph* CreateGraph (int Vnum)
+Graph* CreateGraph (int Vnum)//to create the new graph
 {
     Graph* PtrToGraph = (Graph*)malloc(sizeof(Graph));
     PtrToGraph->Nv=Vnum;
@@ -79,11 +79,11 @@ Graph* CreateGraph (int Vnum)
     return PtrToGraph;
 }
 
-Graph* InsertEdge (Graph* PtG, Edge* PtE)
+Graph* InsertEdge (Graph* PtG, Edge* PtE)//to insert a edge to the graph
 {
     Snode* tmpS=PtG->snode;
 
-    if(ExistSnode(PtG, PtE->idV1))
+    if(ExistSnode(PtG, PtE->idV1))//if the snode exists
     {
         while(PtG->snode->nodeId != PtE->idV1)
         {
@@ -94,11 +94,11 @@ Graph* InsertEdge (Graph* PtG, Edge* PtE)
         Anode* tmpA=PtG->snode->anode;
 
 
-        if(ExistAnode(PtG->snode, PtE->idV2))
+        if(ExistAnode(PtG->snode, PtE->idV2))//if the anode also exists
         {
 
         }
-        else
+        else//if the anode does not exist
         {
             while(PtG->snode->anode->nextAnode != NULL )
             {
@@ -108,14 +108,13 @@ Graph* InsertEdge (Graph* PtG, Edge* PtE)
             PtG->snode->anode->nextAnode=PtNewAnode;
             PtNewAnode->length=PtE->length;
             PtNewAnode->nodeId=PtE->idV2;
-            PtNewAnode->nextAnode=NULL;
-//printf("%i %i\n",PtG->snode->nodeId,PtG->snode->anode->nextAnode->nodeId);
+            PtNewAnode->nextAnode=NULL;//insert the anode
         }
 
         PtG->snode->anode=tmpA;
 
     }
-    else
+    else//if the snode does not exist
     {
         while(PtG->snode->nextSnode != NULL)
         {
@@ -135,12 +134,11 @@ Graph* InsertEdge (Graph* PtG, Edge* PtE)
         PtNewAnode->nodeId=PtE->idV2;
         PtNewAnode->nextAnode=NULL;
         PtG->snode->nextSnode=PtNewSnode;
-        PtG->snode->nextSnode->anode->nextAnode=PtNewAnode;
-//printf("%i %i\n",PtG->snode->nextSnode->nodeId,PtG->snode->nextSnode->anode->nextAnode->nodeId);
+        PtG->snode->nextSnode->anode->nextAnode=PtNewAnode;//insert the snode and anode
     }
     PtG->snode=tmpS;
 
-    if(ExistSnode(PtG, PtE->idV2))
+    if(ExistSnode(PtG, PtE->idV2))//change idV1 and idV2 the following code is similar
     {
         while(PtG->snode->nodeId != PtE->idV2)
         {
@@ -162,7 +160,6 @@ Graph* InsertEdge (Graph* PtG, Edge* PtE)
             PtNewAnode->nodeId=PtE->idV1;
             PtNewAnode->nextAnode=NULL;
             PtG->snode->anode->nextAnode=PtNewAnode;
-//printf("%i %i\n",PtG->snode->nodeId,PtG->snode->anode->nextAnode->nodeId);
         }
         PtG->snode->anode=tmpA;
 
@@ -181,15 +178,13 @@ Graph* InsertEdge (Graph* PtG, Edge* PtE)
         PtNewSnode->anode=createheadA();
         PtNewSnode->visit=0;
         PtNewSnode->dist=9999;
-        PtNewSnode->lastId=-1;
+        PtNewSnode->lastId=-1;//initialize
         PtNewAnode->length=PtE->length;
         PtNewAnode->nodeId=PtE->idV1;
         PtNewAnode->nextAnode=NULL;
         PtG->snode->nextSnode=PtNewSnode;
         PtG->snode->nextSnode->anode->nextAnode=PtNewAnode;
-//printf("%i %i\n",PtG->snode->nextSnode->nodeId,PtG->snode->nextSnode->anode->nextAnode->nodeId);
-
     }
-    PtG->snode=tmpS;
+    PtG->snode=tmpS;//let the pointer go to the initial place
     return PtG;
 }
